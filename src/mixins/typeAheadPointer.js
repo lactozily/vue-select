@@ -8,6 +8,23 @@ module.exports = {
   watch: {
     filteredOptions() {
       this.typeAheadPointer = 0
+
+      if (this.search) {
+        for (let index = 0; index < this.filteredOptions.length; ++index) {
+          let option = this.filteredOptions[index]
+
+          if (
+            typeof option === 'object'
+            && option[this.label].indexOf(this.search) > -1
+          ) {
+            this.typeAheadPointer = index
+            break
+          } else if (option.indexOf(this.search) > -1) {
+            this.typeAheadPointer = index
+            break
+          }
+        }
+      }
     }
   },
 
