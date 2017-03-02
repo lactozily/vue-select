@@ -450,6 +450,22 @@ describe('Select.vue', () => {
 			})
 		})
 
+		it('should set the pointer to the exact match position when the strings are identical, but casing is different', (done) => {
+			const vm = new Vue({
+				template: '<div><v-select :options="options"></v-select></div>',
+				components: {vSelect},
+				data: {
+					options: ['Foo', 'foo', 'bar']
+				}
+			}).$mount()
+
+			vm.$children[0].search = 'foo'
+			Vue.nextTick(() => {
+				expect(vm.$children[0].typeAheadPointer).toEqual(1)
+				done()
+			})
+		})
+
 		it('should move the pointer visually up the list on up arrow keyDown', () => {
 			const vm = new Vue({
 				template: '<div><v-select :options="options"></v-select></div>',
